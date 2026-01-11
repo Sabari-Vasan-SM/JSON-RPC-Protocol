@@ -234,212 +234,22 @@
         </div>
     </div>
 
+    <!-- Load external JavaScript files -->
+    <script src="utils.js"></script>
+    <script src="client.js"></script>
+    
     <script>
         /*
-         * JSON-RPC 2.0 Frontend Client
-         * 
-         * JSON-RPC 2.0 is a stateless, lightweight remote procedure call (RPC)
-         * protocol. It uses JSON over HTTP to communicate with a server.
-         * 
-         * Key Points:
-         * - jsonrpc: Always "2.0" (protocol version)
-         * - method: Name of the method to call on the server
-         * - params: Object containing parameters (empty if none needed)
-         * - id: Unique identifier for the request (used to match responses)
-         * - result: Returned when method succeeds
-         * - error: Returned when method fails (with code and message)
+         * Main Application Script
+         * The heavy lifting is done by client.js - this just provides simple wrappers
+         * for the button click handlers in the HTML
          */
-
-        const SERVER_URL = 'http://localhost:3000/rpc';
-        let isLoading = false;
-
-        /**
-         * Main RPC caller function
-         * Sends a JSON-RPC 2.0 request to the server and handles the response
-         * 
-         * @param {string} methodName - The RPC method to call
-         */
-        async function callRPC(methodName) {
-            // Prevent multiple simultaneous requests
-            if (isLoading) return;
-
-            isLoading = true;
-            disableButtons(true);
-            showLoading(true);
-
-            try {
-                // Create JSON-RPC 2.0 request object
-                const request = {
-                    jsonrpc: '2.0',
-                    method: methodName,
-                    params: {},
-                    id: Date.now() // Use current timestamp as unique ID
-                };
-
-                console.log('Sending request:', request);
-
-                // Send POST request to server
-                const response = await fetch(SERVER_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(request)
-                });
-
-                // Check if response is OK
-                if (!response.ok) {
-                    throw new Error(`HTTP Error: ${response.status} ${response.statusText}`);
-                }
-
-                // Parse JSON response
-                const data = await response.json();
-
-                console.log('Received response:', data);
-
-                // Display the response
-                displayResponse(data, methodName);
-
-                // Update last request timestamp
-                updateLastRequestTime();
-
-                // Show success message if no error
-                if (!data.error) {
-                    showSuccessMessage(`Successfully called ${methodName}`);
-                }
-
-            } catch (error) {
-                console.error('Error:', error.message);
-                displayError(error.message);
-            } finally {
-                isLoading = false;
-                disableButtons(false);
-                showLoading(false);
-            }
-        }
-
-        /**
-         * Display the server response in pretty-printed JSON format
-         * 
-         * @param {object} data - The response data
-         * @param {string} methodName - The method that was called
-         */
-        function displayResponse(data, methodName) {
-            const responseContainer = document.getElementById('responseContent');
-
-            // Pretty-print JSON with 2-space indentation
-            const formattedJSON = JSON.stringify(data, null, 2);
-
-            // Remove the 'empty' class and display the response
-            responseContainer.classList.remove('empty');
-            responseContainer.textContent = formattedJSON;
-
-            // Remove any error messages
-            removeErrorMessage();
-        }
-
-        /**
-         * Display an error message
-         * 
-         * @param {string} errorMessage - The error message to display
-         */
-        function displayError(errorMessage) {
-            const responseContainer = document.getElementById('responseContent');
-
-            responseContainer.classList.remove('empty');
-            responseContainer.innerHTML = `<div class="error">Error: ${errorMessage}</div>`;
-        }
-
-        /**
-         * Show/hide the loading spinner
-         * 
-         * @param {boolean} show - Whether to show the loading state
-         */
-        function showLoading(show) {
-            const loadingElement = document.getElementById('loading');
-            if (show) {
-                loadingElement.classList.add('active');
-            } else {
-                loadingElement.classList.remove('active');
-            }
-        }
-
-        /**
-         * Enable or disable all RPC buttons
-         * 
-         * @param {boolean} disabled - Whether buttons should be disabled
-         */
-        function disableButtons(disabled) {
-            const buttons = document.querySelectorAll('.buttons-group button');
-            buttons.forEach(button => {
-                button.disabled = disabled;
-            });
-        }
-
-        /**
-         * Clear the response display
-         */
-        function clearResponse() {
-            const responseContainer = document.getElementById('responseContent');
-            responseContainer.classList.add('empty');
-            responseContainer.textContent = 'Click a button to send a request to the server';
-            removeErrorMessage();
-            removeSuccessMessage();
-        }
-
-        /**
-         * Update the last request timestamp display
-         */
-        function updateLastRequestTime() {
-            const now = new Date();
-            const timeString = now.toLocaleTimeString('en-US', { 
-                hour12: true,
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit'
-            });
-            document.getElementById('lastRequest').textContent = timeString;
-        }
-
-        /**
-         * Show a success message
-         * 
-         * @param {string} message - The success message
-         */
-        function showSuccessMessage(message) {
-            const responseContainer = document.getElementById('responseContent');
-            const existingMessage = responseContainer.querySelector('.success');
-            if (existingMessage) {
-                existingMessage.remove();
-            }
-            // Message will be shown along with response in displayResponse
-        }
-
-        /**
-         * Remove any displayed error message
-         */
-        function removeErrorMessage() {
-            const responseContainer = document.getElementById('responseContent');
-            const errorElement = responseContainer.querySelector('.error');
-            if (errorElement) {
-                errorElement.remove();
-            }
-        }
-
-        /**
-         * Remove any displayed success message
-         */
-        function removeSuccessMessage() {
-            const responseContainer = document.getElementById('responseContent');
-            const successElement = responseContainer.querySelector('.success');
-            if (successElement) {
-                successElement.remove();
-            }
-        }
-
-        // Log initialization
-        console.log('JSON-RPC 2.0 Time Client initialized');
-        console.log('Server URL:', SERVER_URL);
+        
+        // Note: The main callRPC, clearResponse, and other functions
+        // are defined in client.js and are available globally
+        
+        console.log('✅ Application initialized');
+        console.log('📦 Loaded modules: Utils, JSONRPCClient');
     </script>
 </body>
 </html>
