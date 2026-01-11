@@ -1,0 +1,307 @@
+{
+  "info": {
+    "_postman_id": "json-rpc-time-server",
+    "name": "JSON-RPC 2.0 Time Server",
+    "description": "Collection for testing the JSON-RPC 2.0 Time Server API\n\nThis collection contains all available RPC methods and helper requests for testing and learning about JSON-RPC 2.0 protocol implementation.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Server Health & Info",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/health",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "health"
+              ]
+            },
+            "description": "Check if the server is running and healthy"
+          },
+          "response": []
+        },
+        {
+          "name": "Server Info",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                ""
+              ]
+            },
+            "description": "Get server information and available methods"
+          },
+          "response": []
+        },
+        {
+          "name": "RPC Endpoint Info",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/rpc",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "rpc"
+              ]
+            },
+            "description": "Get RPC endpoint information and usage examples"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Time Methods",
+      "item": [
+        {
+          "name": "Get Current Time",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"getCurrentTime\",\n  \"params\": {},\n  \"id\": 1\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/rpc",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "rpc"
+              ]
+            },
+            "description": "Returns the current server time in ISO 8601 format\n\n**Method Name**: getCurrentTime\n**Parameters**: None\n**Returns**: Object with timestamp in ISO 8601 format\n\n**Example Response**:\n```json\n{\n  \"jsonrpc\": \"2.0\",\n  \"result\": {\n    \"timestamp\": \"2026-01-11T10:30:45.123Z\"\n  },\n  \"id\": 1\n}\n```"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Time Zone",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"getTimeZone\",\n  \"params\": {},\n  \"id\": 2\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/rpc",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "rpc"
+              ]
+            },
+            "description": "Returns the server's timezone information\n\n**Method Name**: getTimeZone\n**Parameters**: None\n**Returns**: Object with timezone name and UTC offset\n\n**Example Response**:\n```json\n{\n  \"jsonrpc\": \"2.0\",\n  \"result\": {\n    \"timezone\": \"America/New_York\",\n    \"offset\": \"-05:00\"\n  },\n  \"id\": 2\n}\n```"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Unix Timestamp",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"getUnixTimestamp\",\n  \"params\": {},\n  \"id\": 3\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/rpc",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "rpc"
+              ]
+            },
+            "description": "Returns the current Unix timestamp in seconds\n\n**Method Name**: getUnixTimestamp\n**Parameters**: None\n**Returns**: Object with Unix timestamp\n\n**Example Response**:\n```json\n{\n  \"jsonrpc\": \"2.0\",\n  \"result\": {\n    \"timestamp\": 1736509845\n  },\n  \"id\": 3\n}\n```"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Error Examples",
+      "item": [
+        {
+          "name": "Invalid Method Name",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"unknownMethod\",\n  \"params\": {},\n  \"id\": 99\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/rpc",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "rpc"
+              ]
+            },
+            "description": "This request will return a -32601 (Method not found) error\n\n**Expected Response**:\n```json\n{\n  \"jsonrpc\": \"2.0\",\n  \"error\": {\n    \"code\": -32601,\n    \"message\": \"Method not found\",\n    \"data\": \"Unknown method: unknownMethod\"\n  },\n  \"id\": 99\n}\n```"
+          },
+          "response": []
+        },
+        {
+          "name": "Missing jsonrpc Version",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"method\": \"getCurrentTime\",\n  \"params\": {},\n  \"id\": 100\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/rpc",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "rpc"
+              ]
+            },
+            "description": "This request will return a -32600 (Invalid Request) error because jsonrpc field is missing\n\n**Expected Response**:\n```json\n{\n  \"jsonrpc\": \"2.0\",\n  \"error\": {\n    \"code\": -32600,\n    \"message\": \"Invalid Request\",\n    \"data\": \"jsonrpc must be \\\"2.0\\\"\"\n  },\n  \"id\": 100\n}\n```"
+          },
+          "response": []
+        },
+        {
+          "name": "Invalid jsonrpc Version",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"jsonrpc\": \"1.0\",\n  \"method\": \"getCurrentTime\",\n  \"params\": {},\n  \"id\": 101\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/rpc",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "rpc"
+              ]
+            },
+            "description": "This request will return a -32600 (Invalid Request) error because jsonrpc is not \"2.0\"\n\n**Expected Response**:\n```json\n{\n  \"jsonrpc\": \"2.0\",\n  \"error\": {\n    \"code\": -32600,\n    \"message\": \"Invalid Request\",\n    \"data\": \"jsonrpc must be \\\"2.0\\\"\"\n  },\n  \"id\": 101\n}\n```"
+          },
+          "response": []
+        },
+        {
+          "name": "Missing Method",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"jsonrpc\": \"2.0\",\n  \"params\": {},\n  \"id\": 102\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/rpc",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "rpc"
+              ]
+            },
+            "description": "This request will return a -32600 (Invalid Request) error because method field is missing\n\n**Expected Response**:\n```json\n{\n  \"jsonrpc\": \"2.0\",\n  \"error\": {\n    \"code\": -32600,\n    \"message\": \"Invalid Request\",\n    \"data\": \"method is required\"\n  },\n  \"id\": 102\n}\n```"
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "rpc_endpoint",
+      "value": "/rpc",
+      "type": "string"
+    }
+  ]
+}
