@@ -232,8 +232,7 @@ function displayResponse(data, methodName) {
     // Pretty-print JSON with 2-space indentation
     const formattedJSON = JSON.stringify(data, null, 2);
 
-    // Remove the 'empty' class and display the response
-    responseContainer.classList.remove('empty');
+    // Display the response
     responseContainer.textContent = formattedJSON;
 
     // Highlight the response based on type
@@ -290,8 +289,7 @@ function displayError(errorMessage) {
     const responseContainer = document.getElementById('responseContent');
 
     responseContainer.classList.remove('empty');
-    responseContainer.innerHTML = `<div class="error">❌ Error: ${errorMessage}</div>`;
-    responseContainer.style.borderLeft = '4px solid #e74c3c';
+    responseContainer.innerHTML = `<div class="text-red-600 bg-red-50 border border-red-300 p-3 rounded#e74c3c';
 }
 
 // =============================================================================
@@ -307,9 +305,9 @@ function showLoading(show) {
     const loadingElement = document.getElementById('loading');
     if (loadingElement) {
         if (show) {
-            loadingElement.classList.add('active');
+            loadingElement.classList.remove('hidden');
         } else {
-            loadingElement.classList.remove('active');
+            loadingElement.classList.add('hidden');
         }
     }
 }
@@ -332,7 +330,6 @@ function disableButtons(disabled) {
 function clearResponse() {
     const responseContainer = document.getElementById('responseContent');
     if (responseContainer) {
-        responseContainer.classList.add('empty');
         responseContainer.textContent = 'Click a button to send a request to the server';
         responseContainer.style.borderLeft = '';
     }
