@@ -1,0 +1,21 @@
+{
+  "name": "json-rpc-time-server",
+  "version": "1.0.0",
+  "description": "JSON-RPC 2.0 real-time clock/time server using Node.js and Express",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "json-rpc",
+    "time",
+    "server",
+    "express"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
